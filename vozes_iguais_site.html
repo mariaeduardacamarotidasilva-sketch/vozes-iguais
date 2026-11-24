@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vozes Iguais — informação, diálogo e atitudes pela igualdade de gênero.">
+  <title>Vozes Iguais | Igualdade começa com diálogo</title>
+  <style>
+    :root {
+      --purple: #56327d;
+      --purple-dark: #35204f;
+      --lavender: #eee7f6;
+      --pink: #f3a6bd;
+      --cream: #fffaf7;
+      --ink: #292431;
+      --muted: #6f6877;
+      --white: #ffffff;
+      --shadow: 0 14px 38px rgba(53,32,79,.10);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink); background: var(--cream); line-height: 1.6;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    header {
+      position: sticky; top: 0; z-index: 10; background: rgba(255,250,247,.92);
+      backdrop-filter: blur(12px); border-bottom: 1px solid rgba(86,50,125,.10);
+    }
+    .nav { min-height: 76px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:850; color:var(--purple-dark); font-size:1.15rem; letter-spacing:-.4px; }
+    .brand-mark { display:grid; place-items:center; width:38px; height:38px; border-radius:13px; color:white; background:var(--purple); font-size:1.15rem; }
+    nav { display:flex; align-items:center; gap:25px; }
+    nav a { text-decoration:none; font-size:.92rem; color:var(--muted); font-weight:650; }
+    nav a:hover { color:var(--purple); }
+    .menu-btn { display:none; border:0; background:var(--lavender); color:var(--purple-dark); padding:9px 12px; border-radius:10px; font-size:1.1rem; }
+    .hero { overflow:hidden; position:relative; padding:92px 0 84px; background:linear-gradient(120deg,#f0e8f7 0%,#fff1f3 100%); }
+    .hero:after { content:""; position:absolute; width:420px; height:420px; border-radius:50%; right:-120px; top:-180px; background:rgba(243,166,189,.25); }
+    .hero-grid { display:grid; grid-template-columns:1.15fr .85fr; align-items:center; gap:48px; position:relative; z-index:1; }
+    .eyebrow { display:inline-flex; gap:8px; align-items:center; color:var(--purple); background:rgba(255,255,255,.72); padding:7px 13px; border-radius:999px; font-weight:750; font-size:.82rem; letter-spacing:.3px; }
+    h1 { font-size:clamp(2.7rem,6vw,5rem); line-height:1.02; letter-spacing:-3px; margin:20px 0; color:var(--purple-dark); }
+    h1 span { color:#b64d78; }
+    .hero p { max-width:590px; font-size:1.12rem; color:#5e5667; margin:0 0 28px; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; }
+    .btn { display:inline-flex; justify-content:center; align-items:center; gap:8px; padding:13px 19px; border-radius:12px; text-decoration:none; font-weight:750; border:1px solid transparent; transition:.2s; cursor:pointer; font:inherit; font-weight:750; }
+    .btn-primary { background:var(--purple); color:white; box-shadow:0 8px 18px rgba(86,50,125,.18); }
+    .btn-primary:hover { background:var(--purple-dark); transform:translateY(-2px); }
+    .btn-light { background:white; color:var(--purple); border-color:#e5d9ef; }
+    .hero-art { min-height:330px; display:grid; place-items:center; }
+    .art-card { width:min(100%,390px); aspect-ratio:1/1; background:white; border-radius:36px; box-shadow:var(--shadow); padding:30px; display:flex; flex-direction:column; justify-content:space-between; transform:rotate(2deg); border:1px solid #f2eaf5; }
+    .art-top { display:flex; justify-content:space-between; color:var(--purple); font-weight:800; font-size:.82rem; }
+    .art-quote { font-size:2.3rem; font-weight:850; line-height:1.12; letter-spacing:-1.4px; color:var(--purple-dark); }
+    .art-quote span { color:#c15c83; }
+    .art-bottom { display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:.83rem; }
+    .dots { letter-spacing:5px; color:var(--pink); font-size:1.4rem; }
+    section { padding:78px 0; }
+    .section-head { max-width:700px; margin-bottom:34px; }
+    .kicker { color:#b64d78; text-transform:uppercase; letter-spacing:1.6px; font-size:.75rem; font-weight:850; }
+    h2 { color:var(--purple-dark); font-size:clamp(2rem,4vw,3rem); line-height:1.12; letter-spacing:-1.4px; margin:8px 0 13px; }
+    .section-head p { color:var(--muted); margin:0; font-size:1.03rem; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .about-card { padding:30px; border-radius:var(--radius); background:white; box-shadow:var(--shadow); border:1px solid #f0eaf2; }
+    .about-card.accent { background:var(--purple); color:white; }
+    .about-card h3 { margin:0 0 10px; font-size:1.25rem; }
+    .about-card p { margin:0; color:var(--muted); }
+    .about-card.accent p { color:#eee5f4; }
+    .icon { width:44px; height:44px; display:grid; place-items:center; border-radius:14px; background:var(--lavender); color:var(--purple); font-size:1.3rem; margin-bottom:18px; }
+    .accent .icon { background:rgba(255,255,255,.15); color:white; }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .lecture { background:white; border:1px solid #eee7f1; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; }
+    .lecture-top { min-height:130px; padding:22px; display:flex; align-items:flex-end; background:linear-gradient(135deg,#eee7f6,#fbe8ef); color:var(--purple-dark); }
+    .lecture:nth-child(2) .lecture-top { background:linear-gradient(135deg,#f9e8ed,#f7e9d9); }
+    .lecture:nth-child(3) .lecture-top { background:linear-gradient(135deg,#e7edf8,#eee7f6); }
+    .lecture-top span { font-size:2.2rem; }
+    .lecture-body { padding:23px; display:flex; flex-direction:column; flex:1; }
+    .tag { color:#a34b73; font-size:.75rem; text-transform:uppercase; font-weight:850; letter-spacing:1px; }
+    .lecture h3 { margin:8px 0; color:var(--purple-dark); font-size:1.22rem; }
+    .lecture p { color:var(--muted); margin:0 0 18px; font-size:.94rem; }
+    .text-link { margin-top:auto; border:0; padding:0; background:none; color:var(--purple); font-weight:800; cursor:pointer; text-align:left; font-size:.95rem; }
+    .text-link:hover { text-decoration:underline; }
+    .participate { background:var(--purple-dark); color:white; }
+    .participate h2 { color:white; }
+    .participate .section-head p { color:#ded3e8; }
+    .participate-grid { display:grid; grid-template-columns:1fr .9fr; gap:45px; align-items:center; }
+    .steps { display:grid; gap:14px; }
+    .step { display:flex; gap:15px; align-items:flex-start; padding:17px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:16px; }
+    .step-num { flex:0 0 34px; height:34px; border-radius:11px; display:grid; place-items:center; background:var(--pink); color:var(--purple-dark); font-weight:900; }
+    .step strong { display:block; margin-bottom:3px; }
+    .step p { margin:0; color:#ded3e8; font-size:.92rem; }
+    .quiz-box { background:white; color:var(--ink); border-radius:24px; padding:27px; box-shadow:0 16px 40px rgba(0,0,0,.14); }
+    .quiz-box h3 { margin:0 0 7px; color:var(--purple-dark); font-size:1.35rem; }
+    .quiz-box > p { margin:0 0 18px; color:var(--muted); font-size:.92rem; }
+    .question { padding:15px 0; border-top:1px solid #eee8f1; }
+    .question strong { display:block; margin-bottom:9px; }
+    .question label { display:flex; gap:9px; align-items:flex-start; margin:8px 0; color:#514b59; font-size:.93rem; cursor:pointer; }
+    input[type=radio] { accent-color:var(--purple); margin-top:5px; }
+    #quiz-result { margin-top:14px; padding:12px; border-radius:12px; background:var(--lavender); color:var(--purple-dark); font-weight:700; display:none; }
+    footer { padding:28px 0; background:#241735; color:#d9cde3; }
+    .footer-inner { display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:center; font-size:.88rem; }
+    .footer-inner strong { color:white; }
+    .modal { display:none; position:fixed; inset:0; z-index:30; background:rgba(25,15,35,.65); padding:20px; align-items:center; justify-content:center; }
+    .modal.open { display:flex; }
+    .modal-card { width:min(560px,100%); background:white; border-radius:22px; padding:30px; position:relative; max-height:85vh; overflow:auto; }
+    .modal-card h3 { color:var(--purple-dark); font-size:1.55rem; margin:0 35px 12px 0; }
+    .modal-card p { color:var(--muted); }
+    .close { position:absolute; top:15px; right:17px; border:0; background:var(--lavender); color:var(--purple); border-radius:50%; width:35px; height:35px; cursor:pointer; font-size:1.2rem; }
+    @media (max-width:800px) {
+      .hero-grid,.participate-grid { grid-template-columns:1fr; gap:25px; }
+      .hero { padding:65px 0 55px; }
+      .hero-art { min-height:280px; }
+      .art-card { max-width:320px; }
+      .cards { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:600px) {
+      .wrap { width:min(100% - 30px,1120px); }
+      .nav { min-height:66px; }
+      .menu-btn { display:block; }
+      nav { display:none; position:absolute; top:66px; left:0; right:0; padding:18px 22px 22px; background:var(--cream); border-bottom:1px solid #eee; flex-direction:column; align-items:flex-start; gap:16px; }
+      nav.open { display:flex; }
+      h1 { letter-spacing:-2px; }
+      section { padding:58px 0; }
+      .about-grid,.cards { grid-template-columns:1fr; }
+      .art-quote { font-size:2rem; }
+      .footer-inner { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#inicio"><span class="brand-mark">V</span> Vozes Iguais</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <nav id="navLinks">
+        <a href="#sobre">Sobre</a>
+        <a href="#palestras">Palestras</a>
+        <a href="#participe">Participe</a>
+        <a href="#quiz">Quiz</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">ODS 5 · IGUALDADE DE GÊNERO</span>
+          <h1>Uma sociedade melhor começa quando <span>todas as vozes</span> são ouvidas.</h1>
+          <p>Informação abre caminhos. O Vozes Iguais é um espaço de aprendizado e diálogo para refletir sobre igualdade de gênero e transformar conhecimento em atitudes.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#palestras">Conheça as palestras <span>→</span></a>
+            <a class="btn btn-light" href="#sobre">Conheça o projeto</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Mensagem sobre igualdade">
+          <div class="art-card">
+            <div class="art-top"><span>VOZES IGUAIS</span><span>ODS 05</span></div>
+            <div class="art-quote">Respeito não é privilégio. <span>É direito.</span></div>
+            <div class="art-bottom"><span>Informar · Refletir · Transformar</span><span class="dots">•••</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Sobre o projeto</span>
+          <h2>Conhecimento também é uma forma de mudança.</h2>
+          <p>O Vozes Iguais é um projeto escolar desenvolvido por estudantes que busca promover a igualdade de gênero por meio de palestras, debates e conteúdos educativos, incentivando o respeito, o conhecimento e a reflexão dentro e fora da escola.</p>
+        </div>
+        <div class="about-grid">
+          <article class="about-card">
+            <div class="icon">🎯</div>
+            <h3>Nosso objetivo</h3>
+            <p>Promover informação e diálogo sobre igualdade de gênero, valorizando oportunidades, respeito e a participação de todos na construção de uma sociedade mais justa.</p>
+          </article>
+          <article class="about-card accent">
+            <div class="icon">🌎</div>
+            <h3>Conexão com a ODS 5</h3>
+            <p>A ODS 5, da Agenda 2030 da ONU, propõe alcançar a igualdade de gênero e empoderar todas as mulheres e meninas. Nosso projeto contribui levando o tema para conversas e aprendizados do cotidiano.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="palestras" style="background:#f7f2f8">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Aprenda e compartilhe</span>
+          <h2>Palestras para abrir conversas importantes.</h2>
+          <p>Explore temas que fazem parte do nosso dia a dia. Cada palestra apresenta um ponto de partida para aprender, conversar e pensar em atitudes possíveis.</p>
+        </div>
+        <div class="cards">
+          <article class="lecture">
+            <div class="lecture-top"><span>⚖️</span></div>
+            <div class="lecture-body">
+              <span class="tag">Tema 01 · Direitos</span>
+              <h3>Igualdade de oportunidades</h3>
+              <p>O que significa igualdade de gênero? Vamos conversar sobre direitos, oportunidades e respeito em diferentes espaços da sociedade.</p>
+              <button class="text-link" data-topic="direitos">Ver resumo da palestra →</button>
+            </div>
+          </article>
+          <article class="lecture">
+            <div class="lecture-top"><span>💬</span></div>
+            <div class="lecture-body">
+              <span class="tag">Tema 02 · Cotidiano</span>
+              <h3>Estereótipos e respeito</h3>
+              <p>Como expectativas e estereótipos de gênero influenciam escolhas, relações e comportamentos no cotidiano?</p>
+              <button class="text-link" data-topic="estereotipos">Ver resumo da palestra →</button>
+            </div>
+          </article>
+          <article class="lecture">
+            <div class="lecture-top"><span>🚀</span></div>
+            <div class="lecture-body">
+              <span class="tag">Tema 03 · Protagonismo</span>
+              <h3>Mulheres que transformam</h3>
+              <p>Conheça a importância da participação das mulheres na ciência, na liderança, na educação e em outras áreas.</p>
+              <button class="text-link" data-topic="protagonismo">Ver resumo da palestra →</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="participate" id="participe">
+      <div class="wrap participate-grid">
+        <div>
+          <div class="section-head">
+            <span class="kicker" style="color:#f3a6bd">Do conhecimento à atitude</span>
+            <h2>Pequenas atitudes também fazem parte da mudança.</h2>
+            <p>Construir igualdade é uma responsabilidade coletiva. Comece ouvindo, aprendendo e questionando ideias que limitam as pessoas.</p>
+          </div>
+          <div class="steps">
+            <div class="step"><span class="step-num">1</span><div><strong>Informe-se</strong><p>Busque conteúdos confiáveis e conheça diferentes perspectivas.</p></div></div>
+            <div class="step"><span class="step-num">2</span><div><strong>Dialogue com respeito</strong><p>Escute experiências sem diminuir ou interromper outras pessoas.</p></div></div>
+            <div class="step"><span class="step-num">3</span><div><strong>Compartilhe o aprendizado</strong><p>Leve conversas sobre igualdade para sua escola, família e comunidade.</p></div></div>
+          </div>
+        </div>
+        <div class="quiz-box" id="quiz">
+          <span class="kicker">Teste seus conhecimentos</span>
+          <h3>Quiz Vozes Iguais</h3>
+          <p>Responda às perguntas e veja o que você aprendeu.</p>
+          <form id="quizForm">
+            <div class="question">
+              <strong>1. Qual é o tema central da ODS 5?</strong>
+              <label><input type="radio" name="q1" value="a"> Consumo responsável</label>
+              <label><input type="radio" name="q1" value="b"> Igualdade de gênero</label>
+              <label><input type="radio" name="q1" value="c"> Vida na água</label>
+            </div>
+            <div class="question">
+              <strong>2. Qual atitude contribui para relações mais respeitosas?</strong>
+              <label><input type="radio" name="q2" value="a"> Repetir estereótipos sem questionar</label>
+              <label><input type="radio" name="q2" value="b"> Ignorar opiniões diferentes</label>
+              <label><input type="radio" name="q2" value="c"> Ouvir e respeitar as pessoas</label>
+            </div>
+            <div class="question">
+              <strong>3. A construção da igualdade é responsabilidade de quem?</strong>
+              <label><input type="radio" name="q3" value="a"> De toda a sociedade</label>
+              <label><input type="radio" name="q3" value="b"> Apenas das escolas</label>
+              <label><input type="radio" name="q3" value="c"> Apenas dos governos</label>
+            </div>
+            <button class="btn btn-primary" type="submit">Conferir respostas</button>
+            <div id="quiz-result" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div><strong>Vozes Iguais</strong><br>Informar para transformar.</div>
+      <div>Projeto escolar · ODS 5 — Igualdade de Gênero</div>
+    </div>
+  </footer>
+
+  <div class="modal" id="topicModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="close" id="closeModal" aria-label="Fechar">×</button>
+      <span class="kicker">Vozes Iguais · Palestra</span>
+      <h3 id="modalTitle"></h3>
+      <p id="modalText"></p>
+      <p><strong>Para refletir:</strong> que mudança ou atitude poderia fazer diferença na sua escola ou comunidade?</p>
+      <button class="btn btn-primary" id="modalDone">Entendi</button>
+    </div>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const opened = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(opened));
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    const topics = {
+      direitos: {
+        title: 'Igualdade de oportunidades',
+        text: 'Igualdade de gênero envolve garantir direitos, respeito e oportunidades sem que o gênero determine o que uma pessoa pode estudar, fazer ou alcançar. Nesta conversa, podemos observar situações da escola, do trabalho e da vida em sociedade e pensar em como torná-las mais justas.'
+      },
+      estereotipos: {
+        title: 'Estereótipos e respeito',
+        text: 'Estereótipos são ideias generalizadas sobre como alguém deveria agir ou quais atividades deveria realizar. Eles podem limitar escolhas e reforçar desigualdades. Reconhecer essas ideias é um primeiro passo para questioná-las e respeitar a individualidade de cada pessoa.'
+      },
+      protagonismo: {
+        title: 'Mulheres que transformam',
+        text: 'A participação das mulheres em diferentes áreas amplia perspectivas, conhecimentos e possibilidades para toda a sociedade. Esta palestra propõe conhecer contribuições femininas e refletir sobre barreiras que ainda podem dificultar o acesso a oportunidades e espaços de decisão.'
+      }
+    };
+    const modal = document.getElementById('topicModal');
+    function closeModal() { modal.classList.remove('open'); }
+    document.querySelectorAll('[data-topic]').forEach(button => {
+      button.addEventListener('click', () => {
+        const topic = topics[button.dataset.topic];
+        document.getElementById('modalTitle').textContent = topic.title;
+        document.getElementById('modalText').textContent = topic.text;
+        modal.classList.add('open');
+        document.getElementById('closeModal').focus();
+      });
+    });
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    document.getElementById('modalDone').addEventListener('click', closeModal);
+    modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
+
+    document.getElementById('quizForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const answers = { q1: 'b', q2: 'c', q3: 'a' };
+      let score = 0;
+      for (const [question, answer] of Object.entries(answers)) {
+        const selected = document.querySelector(`input[name="${question}"]:checked`);
+        if (!selected) {
+          const result = document.getElementById('quiz-result');
+          result.style.display = 'block';
+          result.textContent = 'Responda às três perguntas antes de conferir. Você consegue!';
+          return;
+        }
+        if (selected.value === answer) score++;
+      }
+      const result = document.getElementById('quiz-result');
+      result.style.display = 'block';
+      result.textContent = `Você acertou ${score} de 3 perguntas! ${score === 3 ? 'Muito bem! Continue compartilhando o que aprendeu.' : 'Ótimo começo! Releia os temas e tente novamente.'}`;
+    });
+  </script>
+</body>
+</html>
